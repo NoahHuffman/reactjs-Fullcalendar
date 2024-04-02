@@ -54,11 +54,48 @@ function Calendar() {
     }
   };
 
+  const updateClasses = () => {
+    // Dummy JSON data for classes
+    const classes = [
+      { title: "Math Class", start: "2024-04-01", allDay: false },
+      { title: "Science Class", start: "2024-04-02", allDay: false },
+      { title: "History Class", start: "2024-04-03", allDay: false },
+    ];
+  
+    // Filter out classes that already exist in the events array
+    const newClasses = classes.filter((classEvent) => {
+      return !events.some((event) => event.title === classEvent.title && event.start === classEvent.start);
+    });
+  
+    // Add new classes to the events array
+    setEvents([...events, ...newClasses]);
+  };
+  
+  const updateAssignments = () => {
+    // Dummy JSON data for assignments
+    const assignments = [
+      { title: "Math Assignment", start: "2024-04-05", allDay: true },
+      { title: "Science Assignment", start: "2024-04-06", allDay: true },
+      { title: "History Assignment", start: "2024-04-07", allDay: true },
+    ];
+  
+    // Filter out assignments that already exist in the events array
+    const newAssignments = assignments.filter((assignment) => {
+      return !events.some((event) => event.title === assignment.title && event.start === assignment.start);
+    });
+  
+    // Add new assignments to the events array
+    setEvents([...events, ...newAssignments]);
+  };
+  
+
   return (
     <div>
       <div>
         <button onClick={handleAddAllDayEvent}>Add All-Day Event</button>
         <button onClick={handleAddTimedEvent}>Add Timed Event</button>
+        <button onClick={updateClasses}>Update Classes</button>
+        <button onClick={updateAssignments}>Update Assignments</button>
       </div>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
