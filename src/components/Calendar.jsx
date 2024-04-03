@@ -6,7 +6,12 @@ import interactionPlugin from "@fullcalendar/interaction";
 
 function Calendar() {
   const [events, setEvents] = useState([]);
+  const [theme, setTheme] = useState("standard"); // Initialize theme state
 
+  const handleThemeChange = (newTheme) => {
+    setTheme(newTheme); // Update the theme state with the new theme
+  };
+  
   const handleEventAdd = (event) => {
     setEvents([...events, event]); // Add the new event to the events array
   };
@@ -96,6 +101,10 @@ function Calendar() {
         <button onClick={handleAddTimedEvent}>Add Timed Event</button>
         <button onClick={updateClasses}>Update Classes</button>
         <button onClick={updateAssignments}>Update Assignments</button>
+        {/* Theme change buttons */}
+        <button onClick={() => handleThemeChange("standard")}>Standard Theme</button>
+        <button onClick={() => handleThemeChange("bootstrap")}>Bootstrap Theme</button>
+        {/* Add more theme buttons as needed */}
       </div>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -122,9 +131,10 @@ function Calendar() {
             handleEventAdd(newEvent);
           }
         }}
+        themeSystem={theme} // Set the themeSystem prop based on the selected theme
       />
     </div>
-  );
+  );  
 }
 
 export default Calendar;
